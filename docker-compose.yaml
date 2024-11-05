@@ -1,0 +1,12 @@
+# name: open-telemetry-model
+
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector
+    ports:
+      - "4318:4318"
+      - "4317:4317"
+    volumes:
+      - type: bind 
+        source: ./OtelCollector/collector-config.yaml
+        target: /etc/otelcol/config.yaml
