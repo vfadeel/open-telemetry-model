@@ -10,3 +10,15 @@ services:
       - type: bind 
         source: ./OtelCollector/collector-config.yaml
         target: /etc/otelcol/config.yaml
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - type: bind
+        source: ./Prometheus/Database
+        target: /opt/bitnami/prometheus/data
+      - type: bind
+        source: ./Prometheus/prometheus.yml
+        target: /opt/bitnami/prometheus/conf/prometheus.yml
