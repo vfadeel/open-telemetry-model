@@ -24,6 +24,23 @@ services:
         source: ./Prometheus/prometheus.yml
         target: /etc/prometheus/prometheus.yml
 
+  loki:
+    image: grafana/loki
+    ports:
+      - "3100:3100"
+      - "9096:9096"
+    volumes:
+      - type: bind
+        source: ./Loki/loki-config.yaml
+        target: /etc/loki/loki-config.yaml
+
+  promtail:
+    image: grafana/promtail
+    volumes:
+      - type: bind
+        source: ./Loki/promtail-config.yaml
+        target: /etc/promtail/promtail-config.yaml
+
   grafana:
     image: grafana/grafana
     ports:

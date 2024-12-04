@@ -36,6 +36,8 @@ builder.Logging.AddOpenTelemetry(options => options
     .AddConsoleExporter()
     .AddOtlpExporter());
 
+//http://localhost:3100/loki/api/v1/query_range?query={job=%22Sample.Api%22}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
