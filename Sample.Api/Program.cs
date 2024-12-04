@@ -15,13 +15,17 @@ builder.Services.AddOpenTelemetry()
                 .ConfigureResource(resource => resource.AddService(
                     serviceName: "Sample.Api",
                     serviceVersion: "1.0"))
-                .WithTracing(tracing => tracing
-                    .AddSource("Sample.Api")
-                    .AddAspNetCoreInstrumentation()
-                    .AddConsoleExporter()
-                    .AddOtlpExporter())
+                // .WithTracing(tracing => tracing
+                //     .AddSource("Sample.Api")
+                //     .AddAspNetCoreInstrumentation()
+                //     .AddConsoleExporter()
+                //     .AddOtlpExporter())
                 .WithMetrics(metrics => metrics
                     .AddMeter("Sample.Api")
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    .AddProcessInstrumentation()
                     .AddConsoleExporter()
                     .AddOtlpExporter());
 
