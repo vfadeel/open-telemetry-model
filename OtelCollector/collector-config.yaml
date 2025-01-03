@@ -5,6 +5,14 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
+  sqlserver:
+    collection_interval: 10s
+    username: 'sa'
+    password: 'sql@2019'
+    server: 'NB-SIN-PE0AFEVW\SQLSERVER2019'
+    port: 1433
+    computer_name: 'NB-SIN-PE0AFEVW'
+    instance_name: 'SQLSERVER2019'
 
 exporters:
   debug:
@@ -15,18 +23,24 @@ exporters:
     tls:
       insecure: true
 
+  
+  otlp/tempo:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+
   prometheus:
     endpoint: 0.0.0.0:8889
     namespace: default
 
 service:
   pipelines:
-    # traces:
-    #   receivers: [otlp]
-    #   exporters: [debug]
-    metrics:
+    traces:
       receivers: [otlp]
+      exporters: [debug, otlp/tempo]
+    metrics:
+      receivers: [otlp, sqlserver]
       exporters: [debug, prometheus]
     logs:
       receivers: [otlp]
-      exporters: [debug, otlphttp/logs]
+      exporters: [debug, otlphttp/logs, otlp/tempo]

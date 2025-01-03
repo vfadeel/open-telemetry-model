@@ -15,26 +15,26 @@ builder.Services.AddOpenTelemetry()
                 .ConfigureResource(resource => resource.AddService(
                     serviceName: "Sample.Api",
                     serviceVersion: "1.0"))
-                // .WithTracing(tracing => tracing
-                //     .AddSource("Sample.Api")
-                //     .AddAspNetCoreInstrumentation()
-                //     .AddConsoleExporter()
-                //     .AddOtlpExporter())
-                .WithMetrics(metrics => metrics
-                    .AddMeter("Sample.Api")
+                .WithTracing(tracing => tracing
+                    .AddSource("Sample.Api")
                     .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation()
-                    .AddProcessInstrumentation()
                     .AddConsoleExporter()
                     .AddOtlpExporter());
+                // .WithMetrics(metrics => metrics
+                //     .AddMeter("Sample.Api")
+                //     .AddAspNetCoreInstrumentation()
+                //     .AddHttpClientInstrumentation()
+                //     .AddRuntimeInstrumentation()
+                //     .AddProcessInstrumentation()
+                //     .AddConsoleExporter()
+                //     .AddOtlpExporter());
 
-builder.Logging.AddOpenTelemetry(options => options
-    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(
-        serviceName: "Sample.Api",
-        serviceVersion: "1.0"))
-    .AddConsoleExporter()
-    .AddOtlpExporter());
+// builder.Logging.AddOpenTelemetry(options => options
+//     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(
+//         serviceName: "Sample.Api",
+//         serviceVersion: "1.0"))
+//     .AddConsoleExporter()
+//     .AddOtlpExporter());
 
 //http://localhost:3100/loki/api/v1/query_range?query={job=%22Sample.Api%22}
 
